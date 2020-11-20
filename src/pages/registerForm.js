@@ -21,7 +21,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function RegisterForm() {
+export default function RegisterForm(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cPassword, setCpassword] = useState("");
@@ -42,12 +42,13 @@ export default function RegisterForm() {
     e.preventDefault();
     if (validate()) {
       // Save to localStorage
-
       localStorage.setItem("email", email);
       localStorage.setItem("password", password);
+      localStorage.setItem("isLoggedIn", false);
       setEmail("");
       setPassword("");
       setCpassword("");
+      props.clickMe(true);
     }
   }
 
@@ -103,6 +104,7 @@ export default function RegisterForm() {
   const beautify = useStyles();
   return (
     <div className={beautify.root}>
+      <p>Register</p>
       <Grid container>
         <Grid item lg={8} className={beautify.mxAuto}>
           <form noValidate autoComplete="off" fullWidth={true}>
@@ -150,6 +152,15 @@ export default function RegisterForm() {
               color="primary"
               className={(beautify.mxAuto, "text-center")}
               onClick={onSubmit}
+            >
+              Register
+            </Button>
+            <p>Or,</p>
+            <Button
+              variant="contained"
+              color="secondary"
+              className={(beautify.mxAuto, "text-center")}
+              onClick={() => props.clickMe(true)}
             >
               Login
             </Button>

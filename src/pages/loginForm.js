@@ -8,7 +8,7 @@ import {
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     display: "flex",
   },
@@ -17,30 +17,33 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "auto",
   },
 }));
-export default function LoginForm() {
-  const [lemail, setLemail] = useState("");
-  const [lpassword, setlPassword] = useState("");
+export default function LoginForm(props) {
+  const [email, setemail] = useState("");
+  const [password, setPassword] = useState("");
   const [errors, setErrors] = useState("");
 
   function onEmailChange(e) {
-    setLemail(e.target.value);
+    setemail(e.target.value);
   }
 
-  function onlPasswordChange(e) {
-    setlPassword(e.target.value);
+  function onPasswordChange(e) {
+    setPassword(e.target.value);
   }
 
-  function login() {
+  function login(e) {
+    e.preventDefault();
     if (validate()) {
       let em = localStorage.getItem("email");
       let pwd = localStorage.getItem("password");
-      if (em === lemail) {
-        if (pwd === lpassword) {
-          alert("Welcome");
+      if (em === email) {
+        if (pwd === password) {
+          localStorage.setItem("isLoggedIn", true);
+          props.changeMe(true);
         } else {
-          alert("lPassword didnot match");
+          alert("Password didnot match");
         }
       } else {
+        // props.changeMe(false);
         alert("Invalid User");
       }
     }
@@ -50,14 +53,14 @@ export default function LoginForm() {
     let isValid = true;
     let err = {};
 
-    if (!lemail) {
+    if (!email) {
       isValid = false;
-      err["lemail"] = "Please insert your lemail";
+      err["email"] = "Please insert your email";
     }
 
-    if (!lpassword) {
+    if (!password) {
       isValid = false;
-      err["lpassword"] = "Please insert your lpassword";
+      err["password"] = "Please insert your password";
     }
 
     setErrors(err);
@@ -67,6 +70,7 @@ export default function LoginForm() {
   const beautify = useStyles();
   return (
     <div className={beautify.root}>
+      <p>Login</p>
       <Grid container>
         <Grid item lg={8} className={beautify.mxAuto}>
           <form noValidate autoComplete="off" fullWidth={true}>
@@ -74,25 +78,25 @@ export default function LoginForm() {
               <TextField
                 id="standard-basic"
                 label="Email"
-                type="lemail"
+                type="email"
                 fullWidth={true}
                 onChange={onEmailChange}
               />
               <FormHelperText id="my-helper-text" className={beautify.textRed}>
-                {errors.lemail}
+                {errors.email}
               </FormHelperText>
             </FormControl>
 
             <FormControl fullWidth={true}>
               <TextField
                 id="standard-basic"
-                label="lPassword"
+                label="Password"
                 fullWidth={true}
-                type="lpassword"
-                onChange={onlPasswordChange}
+                type="password"
+                onChange={onPasswordChange}
               />
               <FormHelperText id="my-helper-text" className={beautify.textRed}>
-                {errors.lpassword}
+                {errors.password}
               </FormHelperText>
             </FormControl>
             <Button
@@ -102,6 +106,15 @@ export default function LoginForm() {
               onClick={login}
             >
               Login
+            </Button>
+            <p>Or,</p>
+            <Button
+              variant="contained"
+              color="secondary"
+              className={(beautify.mxAuto, "text-center")}
+              onClick={() => props.clickMe(false)}
+            >
+              Register
             </Button>
           </form>
         </Grid>
