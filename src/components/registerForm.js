@@ -20,11 +20,13 @@ const useStyles = makeStyles(() => ({
     color: "red",
   },
 }));
+
 export default function RegisterForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cPassword, setCpassword] = useState("");
   const [errors, setErrors] = useState("");
+
   function onEmailChange(e) {
     setEmail(e.target.value);
   }
@@ -38,13 +40,15 @@ export default function RegisterForm() {
 
   function onSubmit(e) {
     e.preventDefault();
-    // if (validate()) {
-    //   alert("valid");
-    // } else {
-    //   alert("invalid");
-    // }
+    if (validate()) {
+      // Save to localStorage
+      let userData = {
+        email: email,
+        password: password,
+      };
 
-    validate();
+      localStorage.setItem("data", userData);
+    }
   }
 
   function validate() {
@@ -101,12 +105,12 @@ export default function RegisterForm() {
     <div className={beautify.root}>
       <Grid container>
         <Grid item lg={8} className={beautify.mxAuto}>
-          <form noValidate autoComplete="off" fullWidth>
-            <FormControl fullWidth>
+          <form noValidate autoComplete="off" fullWidth={true}>
+            <FormControl fullWidth={true}>
               <TextField
                 id="standard-basic"
                 label="Email"
-                fullWidth
+                fullWidth={true}
                 onChange={onEmailChange}
                 value={email}
               />
@@ -115,11 +119,11 @@ export default function RegisterForm() {
               </FormHelperText>
             </FormControl>
 
-            <FormControl fullWidth>
+            <FormControl fullWidth={true}>
               <TextField
                 id="standard-basic"
                 label="Password"
-                fullWidth
+                fullWidth={true}
                 type="password"
                 onChange={onPasswordChange}
                 value={password}
@@ -128,12 +132,12 @@ export default function RegisterForm() {
                 {errors.password}
               </FormHelperText>
             </FormControl>
-            <FormControl fullWidth>
+            <FormControl fullWidth={true}>
               <TextField
                 id="standard-basic"
                 label="Confirm Password"
                 type="password"
-                fullWidth
+                fullWidth={true}
                 value={cPassword}
                 onChange={onCpasswordChange}
               />
