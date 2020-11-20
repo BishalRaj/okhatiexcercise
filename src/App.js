@@ -20,6 +20,7 @@ export default function App() {
       style={{ height: "100vh" }}
       className="d-flex align-items-center justify-content-center"
     >
+      {/* Checking for loggedIn user. */}
       {isLoggedIn === true ? (
         <Authorized toggle={loginToggle} />
       ) : (

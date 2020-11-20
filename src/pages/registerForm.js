@@ -50,7 +50,7 @@ export default function RegisterForm(props) {
   function onSubmit(e) {
     e.preventDefault();
     if (validate()) {
-      // Save to localStorage
+      // Save data to localStorage if valid
       localStorage.setItem("email", email);
       localStorage.setItem("password", password);
       localStorage.setItem("isLoggedIn", false);

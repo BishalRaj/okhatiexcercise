@@ -16,6 +16,7 @@ export default function AuthPage(props) {
 
   return (
     <Container maxWidth="sm">
+      {/* Toggling bet^n login and register page */}
       {isLoginPage ? (
         <LoginForm clickMe={handleChange} changeMe={changeView} />
       ) : (

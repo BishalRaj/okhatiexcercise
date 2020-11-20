@@ -3,14 +3,12 @@ import {
   Card,
   CardContent,
   FormControl,
-  FormHelperText,
   Grid,
   TextField,
   Typography,
 } from "@material-ui/core";
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { red } from "@material-ui/core/colors";
 import { Alert } from "@material-ui/lab";
 
 const useStyles = makeStyles(() => ({
@@ -32,6 +30,7 @@ export default function LoginForm(props) {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState("");
 
+  // Handling Inputs on change
   function onEmailChange(e) {
     setemail(e.target.value);
   }
@@ -47,7 +46,10 @@ export default function LoginForm(props) {
       let pwd = localStorage.getItem("password");
       if (em === email) {
         if (pwd === password) {
+          // Update User LoggedIn status
+          // In local storage
           localStorage.setItem("isLoggedIn", true);
+          // In state
           props.changeMe(true);
         } else {
           localStorage.setItem("isLoggedIn", false);
