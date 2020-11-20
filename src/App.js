@@ -2,6 +2,7 @@ import { Container } from "@material-ui/core";
 import React, { useState } from "react";
 import AuthPage from "./components/Auth";
 import Authorized from "./pages/authorizedPage";
+import "bootstrap/dist/css/bootstrap.css";
 
 export default function App() {
   const [isLoggedIn, setLoggedIn] = useState(
@@ -9,12 +10,16 @@ export default function App() {
   );
 
   function loginToggle(value) {
-    localStorage.setItem("isLoggedIn", false);
+    localStorage.setItem("isLoggedIn", value);
     setLoggedIn(value);
   }
 
   return (
-    <Container maxWidth="sm">
+    <Container
+      maxWidth="sm"
+      style={{ height: "100vh" }}
+      className="d-flex align-items-center justify-content-center"
+    >
       {isLoggedIn === true ? (
         <Authorized toggle={loginToggle} />
       ) : (

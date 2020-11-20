@@ -1,12 +1,15 @@
 import {
   Button,
+  Card,
+  CardContent,
   FormControl,
-  FormHelperText,
   Grid,
   TextField,
+  Typography,
 } from "@material-ui/core";
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { Alert } from "@material-ui/lab";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -18,6 +21,12 @@ const useStyles = makeStyles(() => ({
   },
   textRed: {
     color: "red",
+  },
+  card: {
+    backgroundColor: "#F8F8F8",
+  },
+  title: {
+    fontSize: 14,
   },
 }));
 
@@ -104,67 +113,95 @@ export default function RegisterForm(props) {
   const beautify = useStyles();
   return (
     <div className={beautify.root}>
-      <p>Register</p>
       <Grid container>
         <Grid item lg={8} className={beautify.mxAuto}>
-          <form noValidate autoComplete="off" fullWidth={true}>
-            <FormControl fullWidth={true}>
-              <TextField
-                id="standard-basic"
-                label="Email"
-                fullWidth={true}
-                onChange={onEmailChange}
-                value={email}
-              />
-              <FormHelperText id="my-helper-text" className={beautify.textRed}>
-                {errors.email}
-              </FormHelperText>
-            </FormControl>
+          <Card
+            className={(beautify.root, beautify.card)}
+            variant="outlined"
+            p={2}
+          >
+            <CardContent>
+              <Typography
+                variant="h5"
+                component="h2"
+                color="textSecondary"
+                gutterBottom
+              >
+                Register
+              </Typography>
+              <form noValidate autoComplete="off" fullWidth={true}>
+                <FormControl fullWidth={true}>
+                  <TextField
+                    id="standard-basic"
+                    label="Email"
+                    fullWidth={true}
+                    onChange={onEmailChange}
+                    value={email}
+                  />
 
-            <FormControl fullWidth={true}>
-              <TextField
-                id="standard-basic"
-                label="Password"
-                fullWidth={true}
-                type="password"
-                onChange={onPasswordChange}
-                value={password}
-              />
-              <FormHelperText id="my-helper-text" className={beautify.textRed}>
-                {errors.password}
-              </FormHelperText>
-            </FormControl>
-            <FormControl fullWidth={true}>
-              <TextField
-                id="standard-basic"
-                label="Confirm Password"
-                type="password"
-                fullWidth={true}
-                value={cPassword}
-                onChange={onCpasswordChange}
-              />
-              <FormHelperText id="my-helper-text" className={beautify.textRed}>
-                {errors.cpassword}
-              </FormHelperText>
-            </FormControl>
-            <Button
-              variant="contained"
-              color="primary"
-              className={(beautify.mxAuto, "text-center")}
-              onClick={onSubmit}
-            >
-              Register
-            </Button>
-            <p>Or,</p>
-            <Button
-              variant="contained"
-              color="secondary"
-              className={(beautify.mxAuto, "text-center")}
-              onClick={() => props.clickMe(true)}
-            >
-              Login
-            </Button>
-          </form>
+                  {errors.email ? (
+                    <Alert severity="error">{errors.email}</Alert>
+                  ) : (
+                    ""
+                  )}
+                </FormControl>
+
+                <FormControl fullWidth={true}>
+                  <TextField
+                    id="standard-basic"
+                    label="Password"
+                    fullWidth={true}
+                    type="password"
+                    onChange={onPasswordChange}
+                    value={password}
+                  />
+
+                  {errors.password ? (
+                    <Alert severity="error">{errors.password}</Alert>
+                  ) : (
+                    ""
+                  )}
+                </FormControl>
+                <FormControl fullWidth={true}>
+                  <TextField
+                    id="standard-basic"
+                    label="Confirm Password"
+                    type="password"
+                    fullWidth={true}
+                    value={cPassword}
+                    onChange={onCpasswordChange}
+                  />
+
+                  {errors.cpassword ? (
+                    <Alert severity="error">{errors.cpassword}</Alert>
+                  ) : (
+                    ""
+                  )}
+                </FormControl>
+                <FormControl className="w-100">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={"w-100 mt-2"}
+                    onClick={onSubmit}
+                  >
+                    Register
+                  </Button>
+                  <p className={(beautify.title, "text-center my-2 py-0")}>
+                    OR
+                  </p>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    className={"w-100"}
+                    onClick={() => props.clickMe(true)}
+                  >
+                    Login
+                  </Button>
+                </FormControl>
+              </form>
+            </CardContent>
+          </Card>
         </Grid>
       </Grid>
     </div>

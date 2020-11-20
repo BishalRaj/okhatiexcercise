@@ -4,10 +4,10 @@ import LoginForm from "../pages/loginForm";
 import RegisterForm from "../pages/registerForm";
 
 export default function AuthPage(props) {
-  const [login, setLogin] = useState(true);
+  const [isLoginPage, setLoginPageVisible] = useState(true);
 
   function handleChange(value) {
-    setLogin(value);
+    setLoginPageVisible(value);
   }
 
   function changeView(value) {
@@ -16,7 +16,7 @@ export default function AuthPage(props) {
 
   return (
     <Container maxWidth="sm">
-      {login ? (
+      {isLoginPage ? (
         <LoginForm clickMe={handleChange} changeMe={changeView} />
       ) : (
         <RegisterForm clickMe={handleChange} />
