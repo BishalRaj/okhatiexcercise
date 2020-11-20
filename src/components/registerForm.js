@@ -42,12 +42,12 @@ export default function RegisterForm() {
     e.preventDefault();
     if (validate()) {
       // Save to localStorage
-      let userData = {
-        email: email,
-        password: password,
-      };
 
-      localStorage.setItem("data", userData);
+      localStorage.setItem("email", email);
+      localStorage.setItem("password", password);
+      setEmail("");
+      setPassword("");
+      setCpassword("");
     }
   }
 
